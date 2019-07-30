@@ -4,8 +4,7 @@ var Schema = mongoose.Schema
 var CountrySchema = new Schema({
     Name: String,
     Code: String,
-    Region: String,
-    Flag: String
+    Region: String
 })
 
 var Country = mongoose.model('Countries', CountrySchema)
