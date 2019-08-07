@@ -1,4 +1,4 @@
-var Country = require('../models/Country')
+var Country = require('../models/Team')
 var fetch = require('node-fetch')
 
 module.exports = {

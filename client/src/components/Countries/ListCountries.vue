@@ -1,4 +1,4 @@
-<<template>
+<template>
     <div>
 
     </div>
@@ -22,7 +22,7 @@ export default {
             const response = await CountriesService.getCountries()
             console.log(response)
         }
-    }        
+    }
 }
 </script>
 

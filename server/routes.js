@@ -1,5 +1,15 @@
-var CountriesController = require('./controllers/CountriesController')
+var TeamsController = require('./controllers/TeamsController')
+var RegionsController = require('./controllers/RegionsController')
+var RankingController = require('./controllers/RankingController')
 
 module.exports = (app) => {
-    app.post('/countries', CountriesController.LoadCountries)
+    
+    //Countries Request
+    app.post('/countries', TeamsController.LoadCountries)
+
+    //Regions Request
+    app.get('/regions', RegionsController.LoadRegions)
+
+    //Ranking Request
+    app.get('/rankings', RankingController.LoadRanking)
 }
