@@ -12,7 +12,7 @@ module.exports = {
             rank.Team = teams[key].CODE
             rank.Points = 0
             rank.Region = teams[key].REGION
-            rank.User = 2 
+            rank.User = 1
 
             rank.save((error, rank) => {
                 if (error) console.error('LoadRanking - SaveRanking', error)

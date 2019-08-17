@@ -2,10 +2,30 @@
 Todos:
   General:
     ☐ Send Code User Request
-  Generate Initial Data:
+    ☐ Send Code Season Request
+    ✔ Extension VS Azure Cosmos DB @done(19-08-17 05:03)
+    ☐ Install mongodb.exe for features Extension
+    ☐ Handling Errors
+  Generate Initial Data (Server):
     ✔ Generate Rankings @done(19-08-07 22:12)
-    ☐ Generate Team Competition
-    ☐ Generate Groups Competition 
+    ✔ Generate Team Competition @started(19-08-17 02:59) @done(19-08-17 04:58) @lasted(1h59m47s)
+      *Season hardcode*
+      ☐ Slice Teams Conditional Competition @critical 
+    ☐ Generate Groups Competition @high 
       *Only Prequalifiers*
     ☐ Generate Matches Competition 
+    ☐ Search Season's value hardcode
+   
+  Generate Initial Data (Client):
+    ☐ Service Generate Rankings
+    ☐ Service Generate Team Competition
+    ☐ Service Generate Groups Competition
+    ☐ Interface Request
+
+  Write Functional:
+    System Competition PreQualifiers:
+      ✔ Europe @done(19-08-17 05:06)
+      ☐ Asia
+      ☐ America
+      ☐ Africa
 
