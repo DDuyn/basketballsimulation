@@ -1,5 +1,6 @@
 var TeamCompetition = require('../models/TeamCompetition')
 var Ranking = require('../models/Ranking')
+var Functions = require('../functions/functions')
 
 module.exports = {
     async GeneratePre (req, res) {
@@ -10,9 +11,10 @@ module.exports = {
         Ranking.find({Region: region, User: user}, {}, { sort: { Points: -1 } } , (error, teams) => {
             if (error) console.error('GeneratePre - Get Ranking', error)
             
-            let teamscompetition = teams.slice(9)
+            let slice = Functions.GetSliceCompetition(competition)
+            let teamscompetition = teams.slice(slice)
 
-            for(var key in teamscompetition) {
+           for(var key in teamscompetition) {
                 const team = new TeamCompetition()
                 team.Team = teamscompetition[key].Team
                 team.Competition = competition

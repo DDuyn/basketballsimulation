@@ -6,13 +6,17 @@ Todos:
     ✔ Extension VS Azure Cosmos DB @done(19-08-17 05:03)
     ☐ Install mongodb.exe for features Extension
     ☐ Handling Errors
+    ☐ Create functions return object System Competition
   Generate Initial Data (Server):
     ✔ Generate Rankings @done(19-08-07 22:12)
     ✔ Generate Team Competition @started(19-08-17 02:59) @done(19-08-17 04:58) @lasted(1h59m47s)
       *Season hardcode*
-      ☐ Slice Teams Conditional Competition @critical 
-    ☐ Generate Groups Competition @high 
+      ✔ Slice Teams Conditional Competition @critical @started(19-08-18 02:09) @done(19-08-18 02:29) @lasted(20m56s)
+      _Need to define others competitions. Function is created_
+        ☐ Update Function GetSliceCompetition for others competitions
+    ✔ Generate Groups Competition @high @started(19-08-18 02:32) @done(19-08-18 04:40) @lasted(2h8m42s)
       *Only Prequalifiers*
+        ☐ Create Function for Get System Groups @high 
     ☐ Generate Matches Competition 
     ☐ Search Season's value hardcode
    
@@ -21,11 +25,13 @@ Todos:
     ☐ Service Generate Team Competition
     ☐ Service Generate Groups Competition
     ☐ Interface Request
+    ☐ Get Competition Groups @high 
+      *Need to check create groups correctly*
 
   Write Functional:
     System Competition PreQualifiers:
       ✔ Europe @done(19-08-17 05:06)
-      ☐ Asia
-      ☐ America
-      ☐ Africa
+      ✔ Asia @started(19-08-17 18:53) @done(19-08-17 19:38) @lasted(45m5s)
+      ✔ America @started(19-08-17 18:00) @done(19-08-17 18:51) @lasted(51m36s)
+      ✔ Africa @started(19-08-17 19:53) @done(19-08-17 20:39) @lasted(46m2s)
 

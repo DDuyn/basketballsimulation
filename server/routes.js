@@ -2,6 +2,7 @@ var TeamsController = require('./controllers/TeamsController')
 var RegionsController = require('./controllers/RegionsController')
 var RankingController = require('./controllers/RankingController')
 var TeamCompetitionController = require('./controllers/TeamsCompetitionsController')
+var CompetitionGroupsController = require('./controllers/CompetitionsGroupController')
 
 module.exports = (app) => {
     
@@ -16,5 +17,8 @@ module.exports = (app) => {
 
     //TeamCompetition Request
     app.post('/teamscompetition', TeamCompetitionController.GeneratePre)
+
+    //CompetitionGroups
+    app.post('/competitiongroups', CompetitionGroupsController.GenerateGroups)
 
 }
