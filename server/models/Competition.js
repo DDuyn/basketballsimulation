@@ -5,7 +5,7 @@ var CompetitionSchema = new Schema({
     Code: Number,
     Name: String,
     Quantity: Number,
-    Region: Number,
+    Region: String,
     Games: Number
 })
 

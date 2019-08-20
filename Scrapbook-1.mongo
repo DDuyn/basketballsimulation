@@ -1,2 +1,4 @@
 db.rankings.find({Region: 1}).sort({Points: -1})
 db.countries.find({CODE: 121})
+
+db.countries.updateMany({REGION: 4}, { $set: { REGION: "EU" }})

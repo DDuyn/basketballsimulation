@@ -11,12 +11,14 @@ module.exports = {
         Ranking.find({Region: region, User: user}, {}, { sort: { Points: -1 } } , (error, teams) => {
             if (error) console.error('GeneratePre - Get Ranking', error)
             
-            let slice = Functions.GetSliceCompetition(competition)
+            let systemCompetition = Functions.GetSystemCompetition(competition)
+            let slice = teams.length - systemCompetition.Quantity
             let teamscompetition = teams.slice(slice)
 
            for(var key in teamscompetition) {
                 const team = new TeamCompetition()
                 team.Team = teamscompetition[key].Team
+                team.CodeTeam = teamscompetition[key].CodeTeam
                 team.Competition = competition
                 team.Season = 1
                 team.User = user

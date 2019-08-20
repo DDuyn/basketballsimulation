@@ -1,3 +1,4 @@
+var SystemCompetition = require('../functions/systemCompetitions')
 module.exports = {
     GetSliceCompetition: function GetSliceCompetition (codeCompetition) {
             let slice = 0
@@ -32,6 +33,16 @@ module.exports = {
         }
 
         return array
+    },
 
+    GetSystemCompetition: function GetSystemCompetition (codeCompetition) {
+        let objCompetition = []
+        switch (codeCompetition) {
+            case "4":
+                objCompetition = SystemCompetition.PreQualifierEuroBasket
+                break;
+        }
+
+        return objCompetition
     }
 }

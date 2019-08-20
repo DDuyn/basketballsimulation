@@ -7,6 +7,11 @@ Todos:
     ☐ Install mongodb.exe for features Extension
     ☐ Handling Errors
     ☐ Create functions return object System Competition
+    ☐ Set HEADERS for request Axios @critical 
+    ☐ CSS Style @low 
+    ☐ Set Name Competition in Documents  @critical 
+      *Evaluating*
+    ✔ Set images @done(19-08-20 23:17)
   Generate Initial Data (Server):
     ✔ Generate Rankings @done(19-08-07 22:12)
     ✔ Generate Team Competition @started(19-08-17 02:59) @done(19-08-17 04:58) @lasted(1h59m47s)
@@ -16,17 +21,18 @@ Todos:
         ☐ Update Function GetSliceCompetition for others competitions
     ✔ Generate Groups Competition @high @started(19-08-18 02:32) @done(19-08-18 04:40) @lasted(2h8m42s)
       *Only Prequalifiers*
-        ☐ Create Function for Get System Groups @high 
+        ✔ Create Function for Get System Groups @high @started(19-08-20 19:02) @done(19-08-20 19:16) @lasted(14m39s)
+        ☐ Define Object JSON System Competition at systemCompetition.js @high 
     ☐ Generate Matches Competition 
     ☐ Search Season's value hardcode
    
   Generate Initial Data (Client):
     ☐ Service Generate Rankings
     ☐ Service Generate Team Competition
-    ☐ Service Generate Groups Competition
+    ✔ Service Generate Groups Competition @done(19-08-20 21:38)
     ☐ Interface Request
-    ☐ Get Competition Groups @high 
-      *Need to check create groups correctly*
+    ✔ Get Competition Groups @high @started(19-08-20 19:33) @done(19-08-20 21:38) @lasted(2h5m8s)
+      ✔ Send Name Team instead of Code @done(19-08-20 22:47)
 
   Write Functional:
     System Competition PreQualifiers:

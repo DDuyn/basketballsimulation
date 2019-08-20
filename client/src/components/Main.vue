@@ -13,7 +13,7 @@
     </v-layout>
       <v-layout wrap>
         <v-flex xs2>
-          <v-btn class="ma-2" outlined color="indigo" @click="Generate">Generate Competition</v-btn>
+          <v-btn class="ma-2" outlined color="indigo" >Generate Competition</v-btn>
         </v-flex>
       </v-layout>
   </v-container>
@@ -21,6 +21,7 @@
 
 <script>
 import RegionsService from '@/services/RegionsService'
+import CompetitionsGroupService from '@/Services/CompetitionsGroupService'
 export default {
   name: 'Main',
   data () {
@@ -31,6 +32,7 @@ export default {
   },
   mounted () {
     this.LoadRegions()
+    this.getGroupsByCompetition()
   },
   methods: {
     async LoadRegions () {
@@ -38,8 +40,9 @@ export default {
       this.regions = response.data.regions
       console.log('Regions', response.data.regions)
     },
-    async Generate () {
-
+    async getGroupsByCompetition () {
+      const response = await CompetitionsGroupService.getGroupsByCompetition(4)
+      console.log(response)
     }
   }
 

@@ -6,6 +6,7 @@
 
 <script>
 import CountriesService from '@/Services/CountriesService'
+import CompetitionsGroupService from '@/Services/CompetitionsGroupService'
 
 export default {
     name: 'ListCountries',
@@ -15,11 +16,11 @@ export default {
         }
     },
     mounted () {
-        this.getCountries()
+        this.getGroupsByCompetition()
     },
     methods: {
-        async getCountries () {
-            const response = await CountriesService.getCountries()
+        async getGroupsByCompetition () {
+            const response = await CompetitionsGroupService.getGroupsByCompetition(4)
             console.log(response)
         }
     }

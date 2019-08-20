@@ -9,7 +9,8 @@ module.exports = {
 
            for (var key in teams) {
             const rank = new Ranking()
-            rank.Team = teams[key].CODE
+            rank.Team = teams[key].NAME
+            rank.CodeTeam = teams[key].CODE
             rank.Points = 0
             rank.Region = teams[key].REGION
             rank.User = 1

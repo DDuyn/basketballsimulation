@@ -2,9 +2,10 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 var RankingSchema = new Schema({
-   Team: Number,
+   Team: String,
+   CodeTeam: Number,
    Points: Number,
-   Region: Number,
+   Region: String,
    User: Number 
 })
 

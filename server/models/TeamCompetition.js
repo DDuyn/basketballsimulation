@@ -2,7 +2,8 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 var TeamCompetitionSchema = new Schema({
-    Team: Number,
+    Team: String,
+    CodeTeam: Number,
     Competition: Number,
     Season: Number,
     User: Number,
