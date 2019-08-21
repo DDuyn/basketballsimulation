@@ -1,4 +1,8 @@
-db.rankings.find({Region: 1}).sort({Points: -1})
+db.rankings.find({Region: 'EU'}).sort({Points: -1})
 db.countries.find({CODE: 121})
 
 db.countries.updateMany({REGION: 4}, { $set: { REGION: "EU" }})
+
+db.users.find().sort({_id: -1}).limit(1)
+
+db.users.find({Email: 'email@email.com', Password: '123'})

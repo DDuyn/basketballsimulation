@@ -1,17 +1,21 @@
 
 Todos:
   General:
-    ☐ Send Code User Request
-    ☐ Send Code Season Request
+    ✔ Send Code User Request @done(19-08-21 22:50)
+    ✔ Send Code Season Request @done(19-08-21 22:50)
     ✔ Extension VS Azure Cosmos DB @done(19-08-17 05:03)
-    ☐ Install mongodb.exe for features Extension
+    ✔ Install mongodb.exe for features Extension @done(19-08-21 22:50)
     ☐ Handling Errors
-    ☐ Create functions return object System Competition
-    ☐ Set HEADERS for request Axios @critical 
+    ✔ Create functions return object System Competition @done(19-08-21 19:16)
+    ✘ Set HEADERS for request Axios @high @cancelled(19-08-21 22:51)
     ☐ CSS Style @low 
-    ☐ Set Name Competition in Documents  @critical 
+    ☐ Set Name Competition in Documents @high
       *Evaluating*
     ✔ Set images @done(19-08-20 23:17)
+    ✔ Create Component Login for set Session @critical @started(19-08-21 21:40) @done(19-08-21 22:49) @lasted(1h9m15s)
+      ☐ Need to improve Login Componente and handle session
+    ☐ Define TODO Components
+    ☐ Analyzing Unique Controller for Generate Data
   Generate Initial Data (Server):
     ✔ Generate Rankings @done(19-08-07 22:12)
     ✔ Generate Team Competition @started(19-08-17 02:59) @done(19-08-17 04:58) @lasted(1h59m47s)

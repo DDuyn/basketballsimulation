@@ -3,9 +3,15 @@ var RegionsController = require('./controllers/RegionsController')
 var RankingController = require('./controllers/RankingController')
 var TeamCompetitionController = require('./controllers/TeamsCompetitionsController')
 var CompetitionGroupsController = require('./controllers/CompetitionsGroupController')
+var UsersController = require('./controllers/UsersController')
+
 
 module.exports = (app) => {
     
+    //User Request
+    app.post('/register', UsersController.Register)
+    app.post('/login', UsersController.Login)
+
     //Countries Request
     app.post('/countries', TeamsController.LoadCountries)
 

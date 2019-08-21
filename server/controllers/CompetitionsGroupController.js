@@ -35,8 +35,8 @@ module.exports = {
             competitionGroup.PointsFavour = 0
             competitionGroup.PointsAgainst = 0
 
-            competitionGroup.save((error, response) => {
-                if (error) console.error('Generate Groups - Create Groups')
+           competitionGroup.save((error, response) => {
+                if (error) console.error('Generate Groups - Create Groups', error)
             })
 
             if (counterPosition === systemCompetition.NumberTeamsByGroup) {
@@ -58,8 +58,7 @@ module.exports = {
     async GetCompetitionGroups(req, res) {
       let competition = req.params.codeCompetition
 
-
-     CompetitionGroup.find({Competition: competition}, {}, {sort: { Group: 1, Position: 1 } }, (error, groups) => {
+      CompetitionGroup.find({Competition: competition}, {}, {sort: { Group: 1, Position: 1 } }, (error, groups) => {
         if (error) console.error('Get Groups Competition', error)
 
         res.send({
