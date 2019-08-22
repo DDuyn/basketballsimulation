@@ -9,7 +9,7 @@ module.exports = {
         let user = req.body.user
         let season = req.body.season
         let region  = req.body.region
-
+        
         TeamCompetition.find({Competition: competition, User: user, Season: season}, (error, teams) => {
             if (error) console.error('GenerateGroups - Get Teams Competition', error)
 
@@ -35,7 +35,7 @@ module.exports = {
             competitionGroup.PointsFavour = 0
             competitionGroup.PointsAgainst = 0
 
-           competitionGroup.save((error, response) => {
+            competitionGroup.save((error, response) => {
                 if (error) console.error('Generate Groups - Create Groups', error)
             })
 

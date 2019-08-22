@@ -1,5 +1,6 @@
 module.exports = {
     PreQualifierEuroBasket: {
+        "Name": "PreQualifier EuroBasket",
         "CodeCompetition": 4,
         "Region": "EU",
         "Quantity": 40,

@@ -22,6 +22,7 @@
 <script>
 import RegionsService from '@/services/RegionsService'
 import CompetitionsGroupService from '@/Services/CompetitionsGroupService'
+import TeamCompetitionService from '@/Services/TeamsCompetitionService'
 export default {
   name: 'Main',
   data () {
@@ -33,6 +34,7 @@ export default {
   mounted () {
     this.LoadRegions()
     this.getGroupsByCompetition()
+    this.generatePreQ()
   },
   methods: {
     async LoadRegions () {
@@ -43,9 +45,24 @@ export default {
     async getGroupsByCompetition () {
       const response = await CompetitionsGroupService.getGroupsByCompetition(4)
       console.log(response)
+    },
+    async generatePreQ () {
+      const tc = await TeamCompetitionService.generatePreQ({
+        region: 'EU',
+        competition: 4,
+        user: this.$session.get('User')
+      })
+
+      if (tc.status === 200) {
+        const cg = await CompetitionsGroupService.generatePreQ({
+          competition: 4,
+          user: this.$session.get('User'),
+          season: this.$session.get('Season')
+        })
+        console.log(cg)
+      }
     }
   }
-
 }
 </script>
 

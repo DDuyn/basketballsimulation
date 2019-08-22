@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     GetSystemCompetition () {
-      this.systemCompetition = Functions.GetSystemCompetition(this.$route.params.codeCompetition)
+      this.systemCompetition = Functions.GetSystemCompetition(parseInt(this.$route.params.codeCompetition))
       this.letters = Constants.GROUPS
     },
     async getGroupsByComp () {

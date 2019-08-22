@@ -17,7 +17,7 @@ Authorization: ""
 
 {
     "region": "EU",
-    "competition": "4",
+    "competition": 4,
     "user": "1"
 }
 
