@@ -1,7 +1,8 @@
 import Api from '@/Services/Api'
 
 export default {
-  getGroupsByCompetition (codeCompetition) {
-    return Api().get('competitionsgroups/' + codeCompetition, codeCompetition)
+  getGroupsByCompetition (data) {
+    var params = { user: data.user, season: data.season }
+    return Api().get(`competitionsgroups/${data.codeCompetition}`, {params})
   }
 }
