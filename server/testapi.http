@@ -22,7 +22,30 @@ Authorization: ""
 }
 ###
 
-POST {{url}}/generate HTTP/1.1
+POST {{url}}/generateRanking HTTP/1.1
+Content-Type: {{contentType}}
+Authorization: ""
+
+{
+    "user": "1"
+}
+
+###
+
+POST {{url}}/generateTeamsCompetition HTTP/1.1
+Content-Type: {{contentType}}
+Authorization: ""
+
+{
+    "region": "EU",
+    "competition": 4,
+    "user": 1,
+    "season": 1
+}
+
+###
+
+POST {{url}}/generateGroups HTTP/1.1
 Content-Type: {{contentType}}
 Authorization: ""
 
@@ -47,6 +70,9 @@ Authorization: ""
 
 ###
 GET {{url}}/competitionsgroups/4 HTTP/1.1
+
+###
+GET {{url}}/ranking HTTP/1.1
 
 ###
 POST {{url}}/register HTTP/1.1

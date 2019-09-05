@@ -7,42 +7,55 @@ var Functions = require('./functions')
 
 module.exports = {
     GenerateTeamsCompetition: function GenerateTeamsCompetition (Competition, Region, User) {
-        Ranking.find({Region: Region, User: User}, {}, { sort: { Points: -1 } } , (error, teams) => {
-            if (error) console.error('GeneratePre - Get Ranking', error)
+       return Ranking.find({Region: Region, User: User}, {}, { sort: { Points: -1 } })
+       .then((teams) => {
+            return teams
+        })
+        .catch((error) => {
+            Functions.HandleErrors('GenerateTeamsCompetition', 'rankings', error)
+        })
+    },
+    SaveTeamsCompetition: function SaveTeamsCompetition (Competition, User, Season, Teams) {
             
+        if (Teams.length > 0) {               
             let systemCompetition = Functions.GetSystemCompetition(Competition)
-            let slice = teams.length - systemCompetition.Quantity
-            let teamscompetition = teams.slice(slice)
-
+            let slice = Teams.length - systemCompetition.Quantity
+            let teamscompetition = Teams.slice(slice)
+            let promises = []
            for(var key in teamscompetition) {
+               
                 const team = new TeamCompetition()
                 team.Team = teamscompetition[key].Team
                 team.CodeTeam = teamscompetition[key].CodeTeam
                 team.Competition = Competition
-                team.Season = 1
+                team.Season = Season
                 team.User = User
                 team.Top = 0
                 team.IsEliminated = 0
                 team.Points = 0
-
-                team.save((error, teamcompetition) => {
-                    if (error) console.error('GeneratePre - Save Teams Competition', error)                    
-                })                
+                
+                promises.push(team.save())         
             }
-        })
+            return Promise.all(promises)
+        }
     },
     GenerateGroups: function GenerateGroups (Competition, User, Season) {
-        TeamCompetition.find({Competition: Competition, User: User, Season: Season}, (error, teams) => {
-            if (error) console.error('GenerateGroups - Get Teams Competition', error)
-            let tmparr = Array.from(teams)
-            let counterGroup = 0
-            let counterPosition = 1
-            let systemCompetition = Functions.GetSystemCompetition(Competition)
-            
-           for(var key in tmparr) {
+       return TeamCompetition.find({Competition: Competition, User: User, Season: Season})
+       .then((teams) => { return teams })
+       .catch((error) => { 
+           Functions.HandleErrors('GenerateGroups', 'teams-competitions', error)
+       })
+    },
+    SaveGroups: function SaveGroups (Competition, User, Season, Teams) {
+        let tmparr = Array.from(Teams)
+        let counterGroup = 0
+        let counterPosition = 1
+        let systemCompetition = Functions.GetSystemCompetition(Competition)
+        let promises = []
+        for(var key in tmparr) {
             const competitionGroup = new CompetitionGroup()
-            let randomIndex = Math.floor(Math.random() * teams.length)            
-            let team = teams.splice(randomIndex,1)
+            let randomIndex = Math.floor(Math.random() * Teams.length)            
+            let team = Teams.splice(randomIndex,1)
             
             competitionGroup.Season = Season
             competitionGroup.User = User
@@ -56,35 +69,39 @@ module.exports = {
             competitionGroup.PointsFavour = 0
             competitionGroup.PointsAgainst = 0
 
-            competitionGroup.save((error, response) => {
-                if (error) console.error('Generate Groups - Create Groups', error)
-            }) 
+            promises.push(competitionGroup.save())
 
             if (counterPosition === systemCompetition.NumberTeamsByGroup) {
-              counterPosition = 1
-              counterGroup++
+                counterPosition = 1
+                counterGroup++
             }else{
-              counterPosition++
+                counterPosition++
             }
-          }
-        })        
+        }
+
+        return Promise.all(promises)
     },
-    GenerateRanking: function GenerateRanking (User) {
-        Team.find({}, ((error, teams) => {
-            if (error) console.error('LoadRanking - GetTeams', error)
- 
-            for (var key in teams) {
-             const rank = new Ranking()
-             rank.Team = teams[key].NAME
-             rank.CodeTeam = teams[key].CODE
-             rank.Points = 0
-             rank.Region = teams[key].REGION
-             rank.User = User
- 
-             rank.save((error, rank) => {
-                 if (error) console.error('LoadRanking - SaveRanking', error)
-             })
-             } 
-         }))
-     }
+    GenerateRanking: function GenerateRanking () {
+       return Team.find({})
+       .then((teams) => { return teams })
+       .catch((error) => { 
+           Functions.HandleErrors('GenerateRanking', 'countries', error)
+       })
+     },
+    SaveRanking: function SaveRanking (User, Teams) {
+        let promises = []
+        for (var key in Teams) {
+            const rank = new Ranking()
+            rank.Team = Teams[key].NAME
+            rank.CodeTeam = Teams[key].CODE
+            rank.Points = 0
+            rank.Region = Teams[key].REGION
+            rank.User = User
+            
+            promises.push(rank.save())
+
+            }         
+
+           return Promise.all(promises)
+    }
 }

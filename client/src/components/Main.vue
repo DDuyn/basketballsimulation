@@ -25,68 +25,84 @@
 import RegionsService from '@/services/RegionsService'
 import GenerateService from '@/Services/GenerateService'
 import UserService from '@/Services/UserService'
+var Functions = require('../../../server/functions/functions')
 export default {
   name: 'Main',
   data () {
     return {
       regions: [],
       selectedRegion: [],
+      systemCompetition: [],
       componentKey: 0
     }
   },
   mounted () {
     this.LoadRegions()
+    this.GetSystemCompetition()
   },
   methods: {
     forceUpdate () {
       this.componentKey += 1
     },
+    GetSystemCompetition () {
+      this.systemCompetition = Object.entries(Functions.GetSystemCompetition(0))
+    },
     async LoadRegions () {
       const response = await RegionsService.LoadRegions()
       this.regions = response.data.regions
-      console.log('Regions', response.data.regions)
+    },
+    SetDataGenerate (Region, Competition) {
+      let data = {
+        region: Region,
+        competition: Competition,
+        user: this.$session.get('User'),
+        season: this.$session.get('Season')
+      }
+
+      return data
     },
     async Generate () {
-      await GenerateService.Generate({
-        generateRanking: 1,
-        region: 'EU',
-        competition: 4,
-        user: this.$session.get('User'),
-        season: this.$session.get('Season')
-      }).catch(error => console.error('Generate EU', error))
+      let counter = 0
 
-      await GenerateService.Generate({
-        generateRanking: 0,
-        region: 'AF',
-        competition: 7,
-        user: this.$session.get('User'),
-        season: this.$session.get('Season')
-      }).catch(error => console.error('Generate AF', error))
+      await GenerateService.GenerateRankings({
+        user: this.$session.get('User')
+      })
 
-      await GenerateService.Generate({
-        generateRanking: 0,
-        region: 'AM',
-        competition: 5,
-        user: this.$session.get('User'),
-        season: this.$session.get('Season')
-      }).catch(error => console.error('Generate AM', error))
+      for (var key in this.systemCompetition) {
+        let data = {}
+        switch (this.systemCompetition[key][0]) {
+          case 'PreQualifierEuroBasket':
+            data = this.SetDataGenerate(this.systemCompetition[key][1].Region, this.systemCompetition[key][1].CodeCompetition)
+            break
+          case 'PreQualifierAmeriCup':
+            data = this.SetDataGenerate(this.systemCompetition[key][1].Region, this.systemCompetition[key][1].CodeCompetition)
+            break
+          case 'PreQualifierAsiaCup':
+            data = this.SetDataGenerate(this.systemCompetition[key][1].Region, this.systemCompetition[key][1].CodeCompetition)
+            break
+          case 'PreQualifierAfricanBasket':
+            data = this.SetDataGenerate(this.systemCompetition[key][1].Region, this.systemCompetition[key][1].CodeCompetition)
+            break
+        }
 
-      await GenerateService.Generate({
-        generateRanking: 0,
-        region: 'AS',
-        competition: 6,
-        user: this.$session.get('User'),
-        season: this.$session.get('Season')
-      }).catch(error => console.error('Generate AM', error))
+        const tc = await GenerateService.GenerateTeamsCompetition(data)
 
-      await UserService.updateGeneratedSeason({
-        email: this.$session.get('Email'),
-        generated: 1,
-        currentseason: 1
-      }).then(
-        this.$session.set('Generated', 1),
-        this.forceUpdate()
-      )
+        if (tc.status === 200) {
+          const gc = await GenerateService.GenerateGroups(data)
+          if (gc.status === 200) counter++
+        }
+      }
+
+      if (counter > 0) {
+        await UserService.updateGeneratedSeason({
+          email: this.$session.get('Email'),
+          generated: 1,
+          currentseason: 1
+        }).then(
+          this.$session.set('Generated', 1),
+          this.forceUpdate()
+        )
+      }
     }
   }
 }

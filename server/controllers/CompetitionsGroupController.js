@@ -1,7 +1,4 @@
 var CompetitionGroup = require('../models/CompetitionGroup')
-var TeamCompetition = require('../models/TeamCompetition')
-var Constants = require('../functions/constants')
-var Functions = require('../functions/functions')
 
 module.exports = {
     async GetCompetitionGroups(req, res) {

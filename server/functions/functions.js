@@ -50,8 +50,17 @@ module.exports = {
             case 7:
                 objCompetition = SystemCompetition.PreQualifierAfricanBasket
                 break;
+            case 0: 
+                objCompetition = SystemCompetition
+                break;
         }
 
         return objCompetition
+    },
+
+    HandleErrors: function HandleErrors (method, model, error) {
+       message = error.message.replace(`${model} validation failed: `, '')
+       if (error.name === 'ValidationError') console.error(`Error in ${method}: ${message}`)
+
     }
 }

@@ -9,22 +9,23 @@ var GenerateController = require('./controllers/GenerateController')
 module.exports = (app) => {
     
     //Generate
-    app.post('/generate', GenerateController.Generate)
+    app.post('/generateGroups', GenerateController.GenerateGroups)
+    app.post('/generateRanking', GenerateController.GenerateRanking)
+    app.post('/generateTeamsCompetition', GenerateController.GenerateTeamsCompetition)
 
     //User Request
     app.post('/register', UsersController.Register)
     app.post('/login', UsersController.Login)
     app.put('/update', UsersController.UpdateGeneratedAndSeason)
 
+    //Ranking Request
+    app.get('/ranking', RankingController.GetRankings)
+
     //Countries Request
     app.post('/countries', TeamsController.LoadCountries)
 
     //Regions Request
     app.get('/regions', RegionsController.LoadRegions)
-
-    //Ranking Request
-    app.post('/rankings', RankingController.LoadRanking)
-
 
     //CompetitionGroups
     app.get('/competitionsgroups/:codeCompetition', CompetitionGroupsController.GetCompetitionGroups)

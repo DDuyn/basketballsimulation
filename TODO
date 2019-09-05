@@ -6,6 +6,7 @@ Todos:
     ✔ Extension VS Azure Cosmos DB @done(19-08-17 05:03)
     ✔ Install mongodb.exe for features Extension @done(19-08-21 22:50)
     ☐ Handling Errors
+      ✔ Simple Function for Errors @done(19-09-05 00:18)
     ✔ Create functions return object System Competition @done(19-08-21 19:16)
     ✘ Set HEADERS for request Axios @high @cancelled(19-08-21 22:51)
     ☐ CSS Style @low 
@@ -13,12 +14,12 @@ Todos:
       *Evaluating*
     ✔ Set images @done(19-08-20 23:17)
     ✔ Create Component Login for set Session @critical @started(19-08-21 21:40) @done(19-08-21 22:49) @lasted(1h9m15s)
-      ☐ Need to improve Login Componente and handle session
+      ☐ Need to improve Login Component and handle session
     ☐ Define TODO Components
     ✔ Analyzing Unique Controller for Generate Data @done(19-09-03 03:38)
-      ☐ Analyzing Process Generate Groups PreQualifiers
+      ✔ Analyzing Process Generate Groups PreQualifiers @done(19-09-05 00:18)
       *Need refactoring NOT FOUR CALL SAME METHOD OF SERVICE*
-      ☐ Studying Promise.
+      ✔ Studying Promise. @done(19-09-05 00:18)
       *Need better way for Generate Data*
   Generate Initial Data (Server):
     ✔ Generate Rankings @done(19-08-07 22:12)
@@ -31,7 +32,7 @@ Todos:
       *Only Prequalifiers*
         ✔ Create Function for Get System Groups @high @started(19-08-20 19:02) @done(19-08-20 19:16) @lasted(14m39s)
         ✔ Define Object JSON System Competition at systemCompetition.js @high @done(19-09-03 03:40)
-    ☐ Generate Matches Competition 
+    ☐ Generate Matches Competition @high 
     ✔ Search Season's value hardcode @done(19-09-03 03:40)
    
   Generate Initial Data (Client):
@@ -49,3 +50,7 @@ Todos:
       ✔ America @started(19-08-17 18:00) @done(19-08-17 18:51) @lasted(51m36s)
       ✔ Africa @started(19-08-17 19:53) @done(19-08-17 20:39) @lasted(46m2s)
 
+  Refactoring:
+    ✔ Common Find's Queries @done(19-09-05 02:51)
+    ☐ Analyzing Save's Queries
+    ☐ Common functions files

@@ -20,7 +20,7 @@ export default {
   methods: {
     async Login () {
       const response = await UserService.login({
-        email: 'otro@email.com',
+        email: 'email@email.com',
         password: '123'
       })
 

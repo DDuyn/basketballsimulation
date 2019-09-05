@@ -1,7 +1,13 @@
 import Api from '@/Services/Api'
 
 export default {
-  Generate (data) {
-    return Api().post('generate', data)
+  GenerateRankings (data) {
+    return Api().post('generateRanking', data)
+  },
+  GenerateTeamsCompetition (data) {
+    return Api().post('generateTeamsCompetition', data)
+  },
+  GenerateGroups (data) {
+    return Api().post('generateGroups', data)
   }
 }
