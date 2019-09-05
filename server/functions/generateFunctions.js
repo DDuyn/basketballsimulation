@@ -6,7 +6,7 @@ var Constants = require('./constants')
 var Functions = require('./functions')
 
 module.exports = {
-    GenerateTeamsCompetition: function GenerateTeamsCompetition (Competition, Region, User) {
+    GenerateTeamsCompetition: function GenerateTeamsCompetition (Region, User) {
        return Ranking.find({Region: Region, User: User}, {}, { sort: { Points: -1 } })
        .then((teams) => {
             return teams

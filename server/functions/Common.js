@@ -46,6 +46,6 @@ module.exports = {
     Find: function Find (Query) {
         return Query.Model.find(Query.Filter, {}, Query.Order)
             .then(data => { return data })
-            .catch(e => Functions.HandleErrors(`Get ${Query.Model}`, Query.Model, e))
+            .catch(e => Functions.HandleErrors(`Get ${Query.Model.modelName}`, Query.Model.modelName, e))
     }
 }

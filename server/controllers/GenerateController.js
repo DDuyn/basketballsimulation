@@ -24,7 +24,7 @@ module.exports = {
         let user = req.body.user
         let season = req.body.season
         
-        let teams = await Generate.GenerateTeamsCompetition(competition, region, user)
+        let teams = await Generate.GenerateTeamsCompetition(region, user)
         setTimeout(() => {
             if (teams.length > 0) {     
                 Generate.SaveTeamsCompetition(competition, user, season, teams)
