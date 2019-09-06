@@ -62,5 +62,25 @@ module.exports = {
        message = error.message.replace(`${model} validation failed: `, '')
        if (error.name === 'ValidationError') console.error(`Error in ${method}: ${message}`)
 
+    },
+
+    RotateTeams: function RotateTeams (teams) {
+        
+        let factor = (teams.length % 2 === 0 ? teams.length / 2 : (teams.length / 2) + 1)
+        let topRightIndex = factor - 1
+        let topRightItem = teams[topRightIndex]
+        let botLeftIndex = factor
+        let botLeftItem = teams[botLeftIndex]
+  
+        for(var x = topRightIndex; x > 0; x--) {
+          teams[x] = teams[x - 1]
+        }
+  
+        for(var x = botLeftIndex; x < teams.length -1; x++) {
+          teams[x] = teams[x + 1]
+        }
+
+        teams[1] = botLeftItem
+        teams[teams.length - 1] = topRightItem
     }
 }

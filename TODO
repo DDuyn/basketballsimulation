@@ -32,7 +32,10 @@ Todos:
       *Only Prequalifiers*
         ✔ Create Function for Get System Groups @high @started(19-08-20 19:02) @done(19-08-20 19:16) @lasted(14m39s)
         ✔ Define Object JSON System Competition at systemCompetition.js @high @done(19-09-03 03:40)
-    ☐ Generate Matches Competition @high 
+    ✔ Generate Matches Competition @high @done(19-09-06 05:09)
+      ☐ To migrate correct Controller
+      ☐ Service and Component
+      ☐ Edit SysteCompetition JSON. Add differente phases
     ✔ Search Season's value hardcode @done(19-09-03 03:40)
    
   Generate Initial Data (Client):

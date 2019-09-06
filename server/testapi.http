@@ -72,6 +72,9 @@ Authorization: ""
 GET {{url}}/competitionsgroups/4 HTTP/1.1
 
 ###
+GET {{url}}/competitionsgroups/4/group/A HTTP/1.1
+
+###
 GET {{url}}/ranking HTTP/1.1
 
 ###

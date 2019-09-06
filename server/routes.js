@@ -29,5 +29,6 @@ module.exports = (app) => {
 
     //CompetitionGroups
     app.get('/competitionsgroups/:codeCompetition', CompetitionGroupsController.GetCompetitionGroups)
+    app.get('/competitionsgroups/:codeCompetition/group/:group', CompetitionGroupsController.GetTeamsByGroup)
 
 }

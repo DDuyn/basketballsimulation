@@ -1,5 +1,4 @@
 var Common = require('../functions/Common')
-var Functions = require('../functions/functions')
 var Enum = require('../functions/Enum')
 
 module.exports = {
