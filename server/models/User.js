@@ -6,7 +6,8 @@ var UserSchema = new Schema({
     Name: String,
     Email: String,
     Password: String,
-    CurrentSeason: Number
+    CurrentSeason: Number,
+    Generated: Number
 })
 
 var User = mongoose.model('users', UserSchema)

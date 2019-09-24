@@ -12,7 +12,9 @@ module.exports = {
 
             res.send({
                 CodeUser: user[0].Code,
-                CurrentSeason: user[0].CurrentSeason
+                CurrentSeason: user[0].CurrentSeason,
+                Generated: user[0].Generated,
+                Email: user[0].Email
             })
 
         })
@@ -36,6 +38,7 @@ module.exports = {
             user.Password = password
             user.Code = newCode
             user.CurrentSeason = 1
+            user.Generated = 0
     
             user.save((error, response) => {
                 if (error) console.error('Register', error)
@@ -44,11 +47,28 @@ module.exports = {
                     Success: 'Save Succesfully'
                 })
             })
-
-
-
         })
+    },
 
+    async UpdateGeneratedAndSeason (req, res) {
+        let email = req.body.email
+        let generated = req.body.generated
+        let currentseason = req.body.currentseason
 
+        var filter = { Email: email }
+        var query = {
+            $set: {
+                CurrentSeason: currentseason,
+                Generated: generated
+            }
+        }
+        var options = { new: true }
+
+        User.findOneAndUpdate(filter, query, options, (error, user) => {
+            if (error) console.error('Update User', error)
+            res.send({
+                User: user
+            })
+        })
     }
 }

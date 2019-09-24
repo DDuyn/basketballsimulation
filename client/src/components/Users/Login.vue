@@ -28,6 +28,8 @@ export default {
         this.$session.start()
         this.$session.set('User', response.data.CodeUser)
         this.$session.set('Season', response.data.CurrentSeason)
+        this.$session.set('Generated', response.data.Generated)
+        this.$session.set('Email', response.data.Email)
       }
 
       console.log(this.$session.get('User'))

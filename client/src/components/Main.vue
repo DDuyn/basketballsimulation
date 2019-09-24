@@ -13,7 +13,9 @@
     </v-layout>
       <v-layout wrap>
         <v-flex xs2>
-          <v-btn class="ma-2" outlined color="indigo" >Generate Competition</v-btn>
+          {{this.$session.get('Email')}}
+          {{this.$session.get('Generated')}}
+          <v-btn v-if="this.$session.get('Generated') === 0" class="ma-2" outlined color="indigo" @click="Generate" :key="componentKey" >Generate Competition</v-btn>
         </v-flex>
       </v-layout>
   </v-container>
@@ -21,45 +23,85 @@
 
 <script>
 import RegionsService from '@/services/RegionsService'
-import CompetitionsGroupService from '@/Services/CompetitionsGroupService'
-import TeamCompetitionService from '@/Services/TeamsCompetitionService'
+import GenerateService from '@/Services/GenerateService'
+import UserService from '@/Services/UserService'
+var Functions = require('../../../server/functions/functions')
 export default {
   name: 'Main',
   data () {
     return {
       regions: [],
-      selectedRegion: []
+      selectedRegion: [],
+      systemCompetition: [],
+      componentKey: 0
     }
   },
   mounted () {
     this.LoadRegions()
-    this.getGroupsByCompetition()
-    this.generatePreQ()
+    this.GetSystemCompetition()
   },
   methods: {
+    forceUpdate () {
+      this.componentKey += 1
+    },
+    GetSystemCompetition () {
+      this.systemCompetition = Object.entries(Functions.GetSystemCompetition(0))
+    },
     async LoadRegions () {
       const response = await RegionsService.LoadRegions()
       this.regions = response.data.regions
-      console.log('Regions', response.data.regions)
     },
-    async getGroupsByCompetition () {
-      const response = await CompetitionsGroupService.getGroupsByCompetition(4)
-      console.log(response)
+    SetDataGenerate (Region, Competition) {
+      let data = {
+        region: Region,
+        competition: Competition,
+        user: this.$session.get('User'),
+        season: this.$session.get('Season')
+      }
+
+      return data
     },
-    async generatePreQ () {
-      const tc = await TeamCompetitionService.generatePreQ({
-        region: 'EU',
-        competition: 4,
+    async Generate () {
+      let counter = 0
+
+      await GenerateService.GenerateRankings({
         user: this.$session.get('User')
       })
 
-      if (tc.status === 200) {
-        const cg = await CompetitionsGroupService.generatePreQ({
-          competition: 4,
-          user: this.$session.get('User'),
-          season: this.$session.get('Season')
-        })
-        console.log(cg)
+      for (var key in this.systemCompetition) {
+        let data = {}
+        switch (this.systemCompetition[key][0]) {
+          case 'PreQualifierEuroBasket':
+            data = this.SetDataGenerate(this.systemCompetition[key][1].Region, this.systemCompetition[key][1].CodeCompetition)
+            break
+          case 'PreQualifierAmeriCup':
+            data = this.SetDataGenerate(this.systemCompetition[key][1].Region, this.systemCompetition[key][1].CodeCompetition)
+            break
+          case 'PreQualifierAsiaCup':
+            data = this.SetDataGenerate(this.systemCompetition[key][1].Region, this.systemCompetition[key][1].CodeCompetition)
+            break
+          case 'PreQualifierAfricanBasket':
+            data = this.SetDataGenerate(this.systemCompetition[key][1].Region, this.systemCompetition[key][1].CodeCompetition)
+            break
+        }
+
+        const tc = await GenerateService.GenerateTeamsCompetition(data)
+
+        if (tc.status === 200) {
+          const gc = await GenerateService.GenerateGroups(data)
+          if (gc.status === 200) counter++
+        }
+      }
+
+      if (counter > 0) {
+        await UserService.updateGeneratedSeason({
+          email: this.$session.get('Email'),
+          generated: 1,
+          currentseason: 1
+        }).then(
+          this.$session.set('Generated', 1),
+          this.forceUpdate()
+        )
       }
     }
   }

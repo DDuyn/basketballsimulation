@@ -20,6 +20,41 @@ Authorization: ""
     "competition": 4,
     "user": "1"
 }
+###
+
+POST {{url}}/generateRanking HTTP/1.1
+Content-Type: {{contentType}}
+Authorization: ""
+
+{
+    "user": "1"
+}
+
+###
+
+POST {{url}}/generateTeamsCompetition HTTP/1.1
+Content-Type: {{contentType}}
+Authorization: ""
+
+{
+    "region": "EU",
+    "competition": 4,
+    "user": 1,
+    "season": 1
+}
+
+###
+
+POST {{url}}/generateGroups HTTP/1.1
+Content-Type: {{contentType}}
+Authorization: ""
+
+{
+    "region": "EU",
+    "competition": 4,
+    "user": 1,
+    "season": 1
+}
 
 ###
 POST {{url}}/competitiongroups HTTP/1.1
@@ -27,7 +62,7 @@ Content-Type: {{contentType}}
 Authorization: ""
 
 {
-    "competition": "4",
+    "competition": 4,
     "user": "1",
     "season": "1",
     "region": "1"
@@ -37,13 +72,19 @@ Authorization: ""
 GET {{url}}/competitionsgroups/4 HTTP/1.1
 
 ###
+GET {{url}}/competitionsgroups/4/group/A HTTP/1.1
+
+###
+GET {{url}}/ranking HTTP/1.1
+
+###
 POST {{url}}/register HTTP/1.1
 Content-Type: {{contentType}}
 Authorization: ""
 
 {
-  "userName": "David",
-  "email": "otro@email.com",
+  "userName": "DDC",
+  "email": "otro1@email.com",
   "password": "123"
 }
 

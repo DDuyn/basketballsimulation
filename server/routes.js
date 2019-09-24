@@ -1,16 +1,25 @@
 var TeamsController = require('./controllers/TeamsController')
 var RegionsController = require('./controllers/RegionsController')
 var RankingController = require('./controllers/RankingController')
-var TeamCompetitionController = require('./controllers/TeamsCompetitionsController')
 var CompetitionGroupsController = require('./controllers/CompetitionsGroupController')
 var UsersController = require('./controllers/UsersController')
+var GenerateController = require('./controllers/GenerateController')
 
 
 module.exports = (app) => {
     
+    //Generate
+    app.post('/generateGroups', GenerateController.GenerateGroups)
+    app.post('/generateRanking', GenerateController.GenerateRanking)
+    app.post('/generateTeamsCompetition', GenerateController.GenerateTeamsCompetition)
+
     //User Request
     app.post('/register', UsersController.Register)
     app.post('/login', UsersController.Login)
+    app.put('/update', UsersController.UpdateGeneratedAndSeason)
+
+    //Ranking Request
+    app.get('/ranking', RankingController.GetRankings)
 
     //Countries Request
     app.post('/countries', TeamsController.LoadCountries)
@@ -18,14 +27,8 @@ module.exports = (app) => {
     //Regions Request
     app.get('/regions', RegionsController.LoadRegions)
 
-    //Ranking Request
-    app.post('/rankings', RankingController.LoadRanking)
-
-    //TeamCompetition Request
-    app.post('/teamscompetition', TeamCompetitionController.GeneratePre)
-
     //CompetitionGroups
-    app.post('/competitiongroups', CompetitionGroupsController.GenerateGroups)
     app.get('/competitionsgroups/:codeCompetition', CompetitionGroupsController.GetCompetitionGroups)
+    app.get('/competitionsgroups/:codeCompetition/group/:group', CompetitionGroupsController.GetTeamsByGroup)
 
 }

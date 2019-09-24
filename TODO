@@ -6,33 +6,41 @@ Todos:
     ✔ Extension VS Azure Cosmos DB @done(19-08-17 05:03)
     ✔ Install mongodb.exe for features Extension @done(19-08-21 22:50)
     ☐ Handling Errors
+      ✔ Simple Function for Errors @done(19-09-05 00:18)
     ✔ Create functions return object System Competition @done(19-08-21 19:16)
     ✘ Set HEADERS for request Axios @high @cancelled(19-08-21 22:51)
     ☐ CSS Style @low 
-    ☐ Set Name Competition in Documents @high
+    ✔ Set Name Competition in Documents @high @done(19-09-03 03:39)
       *Evaluating*
     ✔ Set images @done(19-08-20 23:17)
     ✔ Create Component Login for set Session @critical @started(19-08-21 21:40) @done(19-08-21 22:49) @lasted(1h9m15s)
-      ☐ Need to improve Login Componente and handle session
+      ☐ Need to improve Login Component and handle session
     ☐ Define TODO Components
-    ☐ Analyzing Unique Controller for Generate Data
+    ✔ Analyzing Unique Controller for Generate Data @done(19-09-03 03:38)
+      ✔ Analyzing Process Generate Groups PreQualifiers @done(19-09-05 00:18)
+      *Need refactoring NOT FOUR CALL SAME METHOD OF SERVICE*
+      ✔ Studying Promise. @done(19-09-05 00:18)
+      *Need better way for Generate Data*
   Generate Initial Data (Server):
     ✔ Generate Rankings @done(19-08-07 22:12)
     ✔ Generate Team Competition @started(19-08-17 02:59) @done(19-08-17 04:58) @lasted(1h59m47s)
       *Season hardcode*
       ✔ Slice Teams Conditional Competition @critical @started(19-08-18 02:09) @done(19-08-18 02:29) @lasted(20m56s)
       _Need to define others competitions. Function is created_
-        ☐ Update Function GetSliceCompetition for others competitions
+        ✔ Update Function GetSliceCompetition for others competitions @done(19-09-03 03:40)
     ✔ Generate Groups Competition @high @started(19-08-18 02:32) @done(19-08-18 04:40) @lasted(2h8m42s)
       *Only Prequalifiers*
         ✔ Create Function for Get System Groups @high @started(19-08-20 19:02) @done(19-08-20 19:16) @lasted(14m39s)
-        ☐ Define Object JSON System Competition at systemCompetition.js @high 
-    ☐ Generate Matches Competition 
-    ☐ Search Season's value hardcode
+        ✔ Define Object JSON System Competition at systemCompetition.js @high @done(19-09-03 03:40)
+    ✔ Generate Matches Competition @high @done(19-09-06 05:09)
+      ☐ To migrate correct Controller
+      ☐ Service and Component
+      ☐ Edit SysteCompetition JSON. Add differente phases
+    ✔ Search Season's value hardcode @done(19-09-03 03:40)
    
   Generate Initial Data (Client):
-    ☐ Service Generate Rankings
-    ☐ Service Generate Team Competition
+    ✔ Service Generate Rankings @done(19-09-02 20:44)
+    ✔ Service Generate Team Competition @done(19-09-02 20:44)
     ✔ Service Generate Groups Competition @done(19-08-20 21:38)
     ☐ Interface Request
     ✔ Get Competition Groups @high @started(19-08-20 19:33) @done(19-08-20 21:38) @lasted(2h5m8s)
@@ -45,3 +53,7 @@ Todos:
       ✔ America @started(19-08-17 18:00) @done(19-08-17 18:51) @lasted(51m36s)
       ✔ Africa @started(19-08-17 19:53) @done(19-08-17 20:39) @lasted(46m2s)
 
+  Refactoring:
+    ✔ Common Find's Queries @done(19-09-05 02:51)
+    ☐ Analyzing Save's Queries
+    ☐ Common functions files

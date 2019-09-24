@@ -2,7 +2,7 @@
   <v-container fluid grid-list-xs>
     <v-layout row wrap>
       <v-flex xs12>
-        <h3>PreQualifiers EuroBasket - 2019</h3>
+        <h3>{{systemCompetition.Name}} - Season {{this.$session.get('Season')}}</h3>
       </v-flex>
     </v-layout>
     <v-layout row wrap>
@@ -59,7 +59,11 @@ export default {
       this.letters = Constants.GROUPS
     },
     async getGroupsByComp () {
-      const response = await CompetitionsGroupService.getGroupsByCompetition(this.$route.params.codeCompetition)
+      const response = await CompetitionsGroupService.getGroupsByCompetition({
+        codeCompetition: this.$route.params.codeCompetition,
+        user: this.$session.get('User'),
+        season: this.$session.get('Season')
+      })
       console.log(response.data)
       this.groups = response.data.groups
     }
