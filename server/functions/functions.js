@@ -37,6 +37,7 @@ module.exports = {
 
     GetSystemCompetition: function GetSystemCompetition (codeCompetition) {
         let objCompetition = []
+        
         switch (codeCompetition) {
             case 4:
                 objCompetition = SystemCompetition.PreQualifierEuroBasket

@@ -5,7 +5,8 @@ module.exports = {
         "Region": "EU",
         "Quantity": 40,
         "NumberGroups": 4,
-        "NumberTeamsByGroup": 10
+        "NumberTeamsByGroup": 10,
+        "RoundsByGroup": 18
     },
     PreQualifierAmeriCup: {
         "Name": "PreQualifier AmeriCup",
@@ -13,7 +14,8 @@ module.exports = {
         "Region": "AM",
         "Quantity": 32,
         "NumberGroups": 4,
-        "NumberTeamsByGroup": 8
+        "NumberTeamsByGroup": 8,
+        "RoundsByGroup": 14
     },
     PreQualifierAsiaCup: {
         "Name": "PreQualifier AsiaCup",
@@ -21,7 +23,8 @@ module.exports = {
         "Region": "AS",
         "Quantity": 40,
         "NumberGroups": 4,
-        "NumberTeamsByGroup": 10
+        "NumberTeamsByGroup": 10,
+        "RoundsByGroup": 18
     },
     PreQualifierAfricanBasket: {
         "Name": "PreQualifier AfroBasket",
@@ -29,6 +32,7 @@ module.exports = {
         "Region": "AF",
         "Quantity": 32,
         "NumberGroups": 4,
-        "NumberTeamsByGroup": 8
+        "NumberTeamsByGroup": 8,
+        "RoundsByGroup": 14
     }
 }

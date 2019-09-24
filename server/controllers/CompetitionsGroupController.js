@@ -23,17 +23,18 @@ module.exports = {
       let competition = req.params.codeCompetition
       let group = req.params.group
       let user = req.query.user
-      let season = req.query
+      let season = req.query.season
 
       let Model = Common.GetModel(Enum.MODELS.COMPETITIONGROUP)
+      let SystemCompetition = Functions.GetSystemCompetition(4)
       let Filter = {Competition: 4, User: 1, Season: 1, Group: 'A'}
  
       let data = await Common.Find(Common.Query(Model, Filter))
       let matches = []
       let teams = Array.from(data)
       let halfCount = data.length / 2
-
-      for (var x = 1; x <= 18; x++) {    
+      
+      for (var x = 1; x <= SystemCompetition.RoundsByGroup; x++) {    
         for(var key in teams) {
           if (key >= halfCount) break
      
