@@ -6,11 +6,12 @@ var MatchSchema = new Schema({
     User: Number,
     Competition: Number,
     Group: String,
+    Round: Number,
     Match: Number,
     Home: String,
     PointsHome: Number,
-    Visitor: String,
-    PointsVisitor: Number,
+    Away: String,
+    PointsAway: Number,
     IsPlayed: Number,
     TypeMatch: String
 })

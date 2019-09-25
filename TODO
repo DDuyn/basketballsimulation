@@ -16,7 +16,7 @@ Todos:
     ✔ Create Component Login for set Session @critical @started(19-08-21 21:40) @done(19-08-21 22:49) @lasted(1h9m15s)
       ☐ Need to improve Login Component and handle session
     ☐ Define TODO Components
-    ✔ Analyzing Unique Controller for Generate Data @done(19-09-03 03:38)
+    ☐ Analyzing Unique Controller for Generate Data
       ✔ Analyzing Process Generate Groups PreQualifiers @done(19-09-05 00:18)
       *Need refactoring NOT FOUR CALL SAME METHOD OF SERVICE*
       ✔ Studying Promise. @done(19-09-05 00:18)
@@ -33,9 +33,9 @@ Todos:
         ✔ Create Function for Get System Groups @high @started(19-08-20 19:02) @done(19-08-20 19:16) @lasted(14m39s)
         ✔ Define Object JSON System Competition at systemCompetition.js @high @done(19-09-03 03:40)
     ✔ Generate Matches Competition @high @done(19-09-06 05:09)
-      ☐ To migrate correct Controller
-      ☐ Service and Component
-      ☐ Edit SysteCompetition JSON. Add differente phases
+      ✔ To migrate correct Controller @done(19-09-25 14:39)
+      ✔ Service and Component @done(19-09-25 14:39)
+      ✘ Edit SysteCompetition JSON. Add differente phases @cancelled(19-09-25 14:39)
     ✔ Search Season's value hardcode @done(19-09-03 03:40)
    
   Generate Initial Data (Client):
@@ -45,6 +45,13 @@ Todos:
     ☐ Interface Request
     ✔ Get Competition Groups @high @started(19-08-20 19:33) @done(19-08-20 21:38) @lasted(2h5m8s)
       ✔ Send Name Team instead of Code @done(19-08-20 22:47)
+
+  Interface:
+    ☐ Login
+    ☐ Main Page
+    ☐ View Competitions
+      ☐ View Groups
+      ☐ View Matches    
 
   Write Functional:
     System Competition PreQualifiers:

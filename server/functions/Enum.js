@@ -5,6 +5,7 @@ module.exports = {
         REGION: 'Region',
         TEAM: 'Team',
         USER: 'User',
-        TEAMCOMPETITION: 'TeamCompetition'
+        TEAMCOMPETITION: 'TeamCompetition',
+        MATCH: 'Match'
     }
 }

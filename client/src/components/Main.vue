@@ -26,6 +26,7 @@ import RegionsService from '@/services/RegionsService'
 import GenerateService from '@/Services/GenerateService'
 import UserService from '@/Services/UserService'
 var Functions = require('../../../server/functions/functions')
+var Constants = require('../../../server/functions/constants')
 export default {
   name: 'Main',
   data () {
@@ -33,6 +34,7 @@ export default {
       regions: [],
       selectedRegion: [],
       systemCompetition: [],
+      groups: [],
       componentKey: 0
     }
   },
@@ -46,6 +48,7 @@ export default {
     },
     GetSystemCompetition () {
       this.systemCompetition = Object.entries(Functions.GetSystemCompetition(0))
+      this.groups = Constants.GROUPS
     },
     async LoadRegions () {
       const response = await RegionsService.LoadRegions()
@@ -89,7 +92,19 @@ export default {
 
         if (tc.status === 200) {
           const gc = await GenerateService.GenerateGroups(data)
-          if (gc.status === 200) counter++
+          if (gc.status === 200) {
+            for (var x = 0; x < this.systemCompetition[key][1].NumberGroups; x++) {
+              const gm = await GenerateService.GenerateMatches({
+                competition: this.systemCompetition[key][1].CodeCompetition,
+                group: this.groups[x],
+                user: this.$session.get('User'),
+                season: this.$session.get('Season'),
+                typeMatch: 'Group'
+              })
+
+              if (gm.status === 200) counter++
+            }
+          }
         }
       }
 

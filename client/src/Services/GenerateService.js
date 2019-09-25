@@ -9,5 +9,8 @@ export default {
   },
   GenerateGroups (data) {
     return Api().post('generateGroups', data)
+  },
+  GenerateMatches (data) {
+    return Api().post('generateMatches', data)
   }
 }

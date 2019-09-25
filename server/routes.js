@@ -12,6 +12,7 @@ module.exports = (app) => {
     app.post('/generateGroups', GenerateController.GenerateGroups)
     app.post('/generateRanking', GenerateController.GenerateRanking)
     app.post('/generateTeamsCompetition', GenerateController.GenerateTeamsCompetition)
+    app.post('/generateMatches', GenerateController.GenerateMatches)
 
     //User Request
     app.post('/register', UsersController.Register)
@@ -29,6 +30,6 @@ module.exports = (app) => {
 
     //CompetitionGroups
     app.get('/competitionsgroups/:codeCompetition', CompetitionGroupsController.GetCompetitionGroups)
-    app.get('/competitionsgroups/:codeCompetition/group/:group', CompetitionGroupsController.GetTeamsByGroup)
+    // app.get('/competitionsgroups/:codeCompetition/group/:group', CompetitionGroupsController.GetTeamsByGroup)
 
 }

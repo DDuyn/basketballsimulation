@@ -2,8 +2,11 @@ var CompetitionGroup = require('../models/CompetitionGroup')
 var TeamCompetition = require('../models/TeamCompetition')
 var Ranking = require('../models/Ranking')
 var Team = require('../models/Team')
+var Match = require('../models/Match')
 var Constants = require('./constants')
 var Functions = require('./functions')
+var Common = require('./Common')
+var Enum = require('./Enum')
 
 module.exports = {
     GenerateTeamsCompetition: function GenerateTeamsCompetition (Region, User) {
@@ -103,5 +106,48 @@ module.exports = {
             }         
 
            return Promise.all(promises)
+    },
+    GenerateMatchId: function GenerateMatchId (User) {
+        let Model = Common.GetModel(Enum.MODELS.MATCH)
+        let Filter = {User: User}        
+        let Order = {sort: { Match: -1 }}
+        let Limit = 1    
+        return Common.FindOne(Common.Query(Model, Filter, Order, Limit))
+    },
+    GenerateMatches: function GenerateMatches (User, Competition, Season, Group, Data, TypeMatch, matchId) {
+        let teams = Array.from(Data)
+        let halfCount = Data.length / 2
+        let SystemCompetition = Functions.GetSystemCompetition(Competition)
+        let promises = [] 
+        for (var x = 1; x <= SystemCompetition.RoundsByGroup; x++) {    
+            for(var key in teams) {
+              if (key >= halfCount) break       
+              let home = teams[key]
+              let away = teams[parseInt(key) + parseInt(halfCount)]
+              
+              const match = new Match()
+              match.Season = Season
+              match.User = User
+              match.Competition = Competition
+              match.Group = Group
+              match.Round = x
+              match.Match = matchId
+              match.PointsHome = 0
+              match.PointsAway = 0
+              match.IsPlayed = 0              
+              match.TypeMatch = TypeMatch
+              if (x % 2 === 0) {
+                match.Home = home.Team
+                match.Away = away.Team
+              }else{
+                match.Home = away.Team
+                match.Away = home.Team
+              }                      
+              promises.push(match.save())
+              matchId++
+            }
+            Functions.RotateTeams(teams)            
+          }          
+          return Promise.all(promises)         
     }
 }

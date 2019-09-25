@@ -8,3 +8,5 @@ db.users.find().sort({_id: -1}).limit(1)
 db.users.find({Email: 'email@email.com', Password: '123'})
 
 db.currenteason.insertOne({User: 1, Season: 1, Generated: 'True'})
+
+db.matches.find({ Competition: 4, User: 1 }).sort({ Match: -1 })
