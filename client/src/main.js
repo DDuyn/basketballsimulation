@@ -3,11 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.min.css'
+import Buefy from 'buefy'
+import 'buefy/dist/buefy.css'
 import VueSession from 'vue-session'
 
-Vue.use(Vuetify)
+Vue.use(Buefy)
 Vue.use(VueSession)
 Vue.config.productionTip = false
 
@@ -15,7 +15,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  vuetify: new Vuetify(),
   components: { App },
   template: '<App/>'
 })
