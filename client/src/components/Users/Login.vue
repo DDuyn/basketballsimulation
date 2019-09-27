@@ -23,7 +23,7 @@
       <div class="container has-text-left">
         <div class="columns is-desktop">
           <div class="column is-one-fifth">
-            <b-button size="is-medium" type="is-danger">Sign up</b-button>
+            <b-button size="is-medium" type="is-primary">Sign up</b-button>
           </div>
         </div>
       </div>

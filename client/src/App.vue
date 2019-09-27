@@ -25,15 +25,15 @@ export default {
 }
 
 .title {
-  color: white;
+  color: #0a2c3c;
 }
 
 .label {
-  color: #ff3860;
+  color: #0a2c3c;
 }
 
 .input {
-  border-color: #f9a2b4;
+  border-color: #0a2c3c;
   color: #004465;
   font-weight: bold;
 }
@@ -54,8 +54,12 @@ export default {
   color: #ff3860;
 }
 
-.hero-body {
+.button.is-primary {
   background-color: #0a2c3c;
+}
+
+.button.is-primary:hover{
+  background-color: #ff3860;
 }
 
 </style>

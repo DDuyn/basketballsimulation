@@ -20,7 +20,7 @@
         <template slot="end">
             <b-navbar-item tag="div">
                 <div class="buttons">
-                    <b-button type="is-danger"
+                    <b-button type="is-primary"
                         @click="isSignUpModalActive = true"
                     >
                         <strong>Sign up</strong>
