@@ -60,4 +60,6 @@ export default {
     border: 5px solid white;
     border-radius: 1%;
 }
+
+
 </style>

@@ -61,5 +61,8 @@ export default {
 .button.is-primary:hover{
   background-color: #ff3860;
 }
+.navbar-menu {
+    border-bottom: 2px solid #ff3860;
+}
 
 </style>
