@@ -1,23 +1,26 @@
 var User = require('../models/User')
-
+var Common = require('../functions/Common')
+var Enum = require('../functions/Enum')
 
 module.exports = {
-    async Login (req, res) {
-       console.log(req.body)
+    async Login (req, res) {      
         let email = req.body.email
         let password = req.body.password
 
-        User.find({Email: email, Password: password}, (error, user) => {
-            if (error) console.error('Login', error)
-
+        let Model = Common.GetModel(Enum.MODELS.USER)
+        let Filter = {Email: email, Password: password}
+        let user = await Common.FindOne(Common.Query(Model, Filter))
+        if (user) {           
             res.send({
-                CodeUser: user[0].Code,
-                CurrentSeason: user[0].CurrentSeason,
-                Generated: user[0].Generated,
-                Email: user[0].Email
+                Status: 200,
+                User: user
             })
-
-        })
+        }else{            
+            res.send({                
+                Status: 404,
+                User: null
+            })
+        }
     },
 
     async Register (req, res) {

@@ -1,65 +1,82 @@
 <template>
-  <section class="hero is-ligth">
-    <div class="hero-body">
-      <div class="container has-text-left">
-        <h1 class="title">Sign up</h1>
-        <hr/>
-        <div class="columns is-desktop">
-          <div class="column is-two-fifths">
-            <b-field label="Email">
-              <b-input type="email" icon="email" required></b-input>
-            </b-field>
+      <div class="card">
+        <section class="hero is-ligth">
+          <div class="hero-body">
+            <div class="container has-text-left">
+              <h1 class="title">Login</h1>
+              <hr/>
+              <div class="columns is-desktop">
+                <div class="column is-two-fifths">
+                  <b-field label="Email">
+                    <b-input type="email" ref='email' icon="email" required v-model="email"></b-input>
+                  </b-field>
+                </div>
+                <div class="column is-two-fifths">
+                  <b-field label="Password">
+                      <b-input type="password" ref='password' icon="lock-question" required v-model="password">
+                      </b-input>
+                  </b-field>
+                </div>
+              </div>
+            </div>
+            <div class="container has-text-left">
+              <div class="columns is-desktop">
+                <div class="column is-one-fifth">
+                  <b-button size="is-medium" type="is-primary" @click="Validate">Login</b-button>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      <div class="columns is-desktop">
-        <div class="column is-two-fifths">
-          <b-field label="Password">
-              <b-input type="password" icon="lock-question" required>
-              </b-input>
-          </b-field>
-        </div>
-      </div>
-      </div>
-      <div class="container has-text-left">
-        <div class="columns is-desktop">
-          <div class="column is-one-fifth">
-            <b-button size="is-medium" type="is-primary">Sign up</b-button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        </section>
+  </div>
 </template>
 
 <script>
 import UserService from '@/Services/UserService'
-
 export default {
   name: 'Login',
   data () {
     return {
-      codeUser: 0
+      email: '',
+      password: ''
     }
-  },
-  mounted () {
-    this.Login()
   },
   methods: {
     async Login () {
-      const response = await UserService.login({
-        email: 'email@email.com',
-        password: '123'
+      await UserService.login({
+        email: this.email,
+        password: this.password
       })
-
-      if (response.status === 200) {
-        this.$session.start()
-        this.$session.set('User', response.data.CodeUser)
-        this.$session.set('Season', response.data.CurrentSeason)
-        this.$session.set('Generated', response.data.Generated)
-        this.$session.set('Email', response.data.Email)
-      }
-
-      console.log(this.$session.get('User'))
+        .then(response => {
+          if (response.data.Status === 200) {
+            this.SetSession(response.data.User)
+            this.$emit('close')
+            this.$router.push('Main')
+          }
+          if (response.data.Status === 404) {
+            this.$buefy.dialog.alert({
+              title: `User doesn't exist`,
+              message: `<strong>The email and / or password are incorrect</strong>`,
+              type: 'is-danger',
+              hasIcon: true,
+              icon: 'times-circle',
+              iconPack: 'fa'
+            })
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    SetSession (User) {
+      this.$session.start()
+      this.$session.set('User', User.Code)
+      this.$session.set('Season', User.CurrentSeason)
+      this.$session.set('Generated', User.Generated)
+      this.$session.set('Email', User.Email)
+    },
+    Validate () {
+      if (this.$refs.email.checkHtml5Validity() && this.$refs.password.checkHtml5Validity()) this.Login()
     }
   }
 }

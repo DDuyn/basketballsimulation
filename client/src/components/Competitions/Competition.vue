@@ -50,10 +50,14 @@ export default {
     }
   },
   mounted () {
+    this.IsLogged()
     this.GetSystemCompetition()
     this.getGroupsByComp()
   },
   methods: {
+    IsLogged () {
+      if (!this.$session.exists('User')) this.$router.push('/')
+    },
     GetSystemCompetition () {
       this.systemCompetition = Functions.GetSystemCompetition(parseInt(this.$route.params.codeCompetition))
       this.letters = Constants.GROUPS

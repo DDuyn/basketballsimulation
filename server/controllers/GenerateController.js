@@ -2,7 +2,6 @@ var Generate = require('../functions/generateFunctions')
 var Enum = require('../functions/Enum')
 var Common = require('../functions/Common')
 var Functions = require('../functions/functions')
-var Constants = require('../functions/constants')
 
 module.exports = {
    async GenerateGroups (req, res) {        
