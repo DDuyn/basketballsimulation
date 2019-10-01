@@ -6,9 +6,13 @@ import router from './router'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import VueSession from 'vue-session'
+import './vee-validate'
+import { ValidationProvider, ValidationObserver } from 'vee-validate'
 
 Vue.use(Buefy)
 Vue.use(VueSession)
+Vue.component('ValidationProvider', ValidationProvider)
+Vue.component('ValidationObserver', ValidationObserver)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
