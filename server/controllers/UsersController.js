@@ -1,6 +1,7 @@
 var User = require('../models/User')
 var Common = require('../functions/Common')
 var Enum = require('../functions/Enum')
+var bcrypt = require('bcrypt')
 
 module.exports = {
     async Login (req, res) {      
@@ -28,6 +29,14 @@ module.exports = {
         let userName = req.body.userName
         let password = req.body.password
         let email = req.body.email
+
+        var BCRYPT_SALT_ROUNDS = 12
+        bcrypt.hash(password, BCRYPT_SALT_ROUNDS)
+            .then(hashPassword => {
+                let Model = Common.GetModel(Enum.MODELS.USER)
+                let Order = {sort: { _id: -1 }}
+                
+            })
 
         User.findOne({}, {}, { sort: { _id: -1 } }, (error, code) => {
             if (error) console.error('Register - Last Code', error)
