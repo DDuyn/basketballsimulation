@@ -4,27 +4,27 @@ var Enum = require('../functions/Enum')
 var bcrypt = require('bcrypt')
 
 module.exports = {
-    async Login (req, res) {      
+    async Login(req, res) {
         let email = req.body.email
         let password = req.body.password
 
         let Model = Common.GetModel(Enum.MODELS.USER)
-        let Filter = {Email: email, Password: password}
+        let Filter = { Email: email, Password: password }
         let user = await Common.FindOne(Common.Query(Model, Filter))
-        if (user) {           
+        if (user) {
             res.send({
                 Status: 200,
                 User: user
             })
-        }else{            
-            res.send({                
+        } else {
+            res.send({
                 Status: 404,
                 User: null
             })
         }
     },
 
-    async Register (req, res) {
+    async Register(req, res) {
 
         let userName = req.body.userName
         let password = req.body.password
@@ -34,35 +34,44 @@ module.exports = {
         bcrypt.hash(password, BCRYPT_SALT_ROUNDS)
             .then(hashPassword => {
                 let Model = Common.GetModel(Enum.MODELS.USER)
-                let Order = {sort: { _id: -1 }}
-                
+                let Filter = { Email: email }
+                let Order = { sort: { _id: -1 } }
+                Common.FindOne(Common.Query(Model, Filter))
+                    .then(user => {
+                        if (user) {
+                            res.send({
+                                Status: 409,
+                                User: user
+                            })
+                        } else {
+                            Common.FindOne(Common.Query(Model, {}, Order))
+                                .then(user => {
+                                    if (user) newCode = user.Code + 1
+                                    else newCode = 1
+        
+                                    const newUser = new User()
+                                    newUser.Name = userName
+                                    newUser.Email = email
+                                    newUser.Password = hashPassword
+                                    newUser.Code = newCode
+                                    newUser.CurrentSeason = 1
+                                    newUser.Generated = 0
+        
+                                    newUser.save((error, user) => {
+                                        if (error) console.error('Register', error)
+                                        res.send({
+                                            Status: 200,
+                                            Success: 'Saved Succesfully',
+                                            User: user
+                                        })
+                                    })
+                                })
+                            }
+                    })
             })
-
-        User.findOne({}, {}, { sort: { _id: -1 } }, (error, code) => {
-            if (error) console.error('Register - Last Code', error)
-            
-            if (code !== null) newCode = code.Code + 1
-            else newCode = 1
-
-            const user = new User()
-            user.Name = userName
-            user.Email = email
-            user.Password = password
-            user.Code = newCode
-            user.CurrentSeason = 1
-            user.Generated = 0
-    
-            user.save((error, response) => {
-                if (error) console.error('Register', error)
-    
-                res.send({
-                    Success: 'Save Succesfully'
-                })
-            })
-        })
     },
 
-    async UpdateGeneratedAndSeason (req, res) {
+    async UpdateGeneratedAndSeason(req, res) {
         let email = req.body.email
         let generated = req.body.generated
         let currentseason = req.body.currentseason

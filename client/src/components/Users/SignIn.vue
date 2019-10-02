@@ -94,10 +94,19 @@ export default {
               message: `<strong>User created succesfully</strong>`,
               type: 'is-success',
               hasIcon: true,
+              icon: 'check-circle',
+              iconPack: 'mdi'
+            })
+            this.$emit('close')
+          } else if (response.data.Status === 409) {
+            this.$buefy.dialog.alert({
+              title: `Error`,
+              message: `<strong>Email already exists</strong>`,
+              type: 'is-danger',
+              hasIcon: true,
               icon: 'times-circle',
               iconPack: 'fa'
             })
-            this.$emit('close')
           }
         })
         .catch(error => {
