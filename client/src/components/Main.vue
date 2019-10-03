@@ -1,28 +1,18 @@
 <template>
-  <v-container fluid grid-list-xs>
-    <v-layout wrap>
-      <v-flex xs2>
-      <v-select
-        :items="regions"
-        v-model="selectedRegion"
-        item-value="Code"
-        item-text="Name"
-        label="Regions"
-      ></v-select>
-      </v-flex>
-    </v-layout>
-      <v-layout wrap>
-        <v-flex xs2>
-          {{this.$session.get('Email')}}
-          {{this.$session.get('Generated')}}
-          <v-btn v-if="this.$session.get('Generated') === 0" class="ma-2" outlined color="indigo" @click="Generate" :key="componentKey" >Generate Competition</v-btn>
-        </v-flex>
-      </v-layout>
-  </v-container>
+<div>
+  <section class="hero is-dark" :active.sync="isPogressModalActive" v-if="this.$session.get('Generated') === 0">
+    <div class="hero-body">
+      <div class="container has-text-left" >
+        <h1 class="title">{{ GenerateText }}</h1>
+        <hr/>
+        <vue-progress-bar></vue-progress-bar>
+      </div>
+    </div>
+  </section>
+</div>
 </template>
 
 <script>
-import RegionsService from '@/services/RegionsService'
 import GenerateService from '@/Services/GenerateService'
 import UserService from '@/Services/UserService'
 var Functions = require('../../../server/functions/functions')
@@ -35,24 +25,18 @@ export default {
       selectedRegion: [],
       systemCompetition: [],
       groups: [],
-      componentKey: 0
+      isPogressModalActive: true,
+      GenerateText: 'Generate data'
     }
   },
   mounted () {
-    this.LoadRegions()
     this.GetSystemCompetition()
+    this.checkGenerateData()
   },
   methods: {
-    forceUpdate () {
-      this.componentKey += 1
-    },
     GetSystemCompetition () {
       this.systemCompetition = Object.entries(Functions.GetSystemCompetition(0))
       this.groups = Constants.GROUPS
-    },
-    async LoadRegions () {
-      const response = await RegionsService.LoadRegions()
-      this.regions = response.data.regions
     },
     SetDataGenerate (Region, Competition) {
       let data = {
@@ -66,12 +50,15 @@ export default {
     },
     async Generate () {
       let counter = 0
-
+      this.$Progress.start()
+      this.GenerateText = 'Generating Ranking'
       await GenerateService.GenerateRankings({
         user: this.$session.get('User')
       })
 
       for (var key in this.systemCompetition) {
+        this.GenerateText = `Generating Competition: ${this.systemCompetition[key][1].Name}`
+        this.$Progress.set(0)
         let data = {}
         switch (this.systemCompetition[key][0]) {
           case 'PreQualifierEuroBasket':
@@ -87,12 +74,12 @@ export default {
             data = this.SetDataGenerate(this.systemCompetition[key][1].Region, this.systemCompetition[key][1].CodeCompetition)
             break
         }
-
         const tc = await GenerateService.GenerateTeamsCompetition(data)
-
         if (tc.status === 200) {
+          this.GenerateText = `Generating Groups of ${this.systemCompetition[key][1].Name}`
           const gc = await GenerateService.GenerateGroups(data)
           if (gc.status === 200) {
+            this.GenerateText = `Generating Matches of ${this.systemCompetition[key][1].Name}`
             for (var x = 0; x < this.systemCompetition[key][1].NumberGroups; x++) {
               const gm = await GenerateService.GenerateMatches({
                 competition: this.systemCompetition[key][1].CodeCompetition,
@@ -101,7 +88,6 @@ export default {
                 season: this.$session.get('Season'),
                 typeMatch: 'Group'
               })
-
               if (gm.status === 200) counter++
             }
           }
@@ -115,14 +101,25 @@ export default {
           currentseason: 1
         }).then(
           this.$session.set('Generated', 1),
-          this.forceUpdate()
+          this.$Progress.finish(),
+          this.isPogressModalActive = false,
+          this.$buefy.notification.open({
+            message: 'Generated data correctly!',
+            type: 'is-success'
+          })
         )
       }
+    },
+    checkGenerateData () {
+      if (this.$session.get('Generated') !== 1) this.Generate()
+      else this.isPogressModalActive = false
     }
   }
 }
 </script>
 
 <style scoped>
-
+hr{
+  background-color:#ff3860;
+}
 </style>

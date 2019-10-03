@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <Navigation></Navigation>
+      <Navigation v-if="this.$route.path !== '/NotFound'"></Navigation>
       <router-view/>
   </div>
 </template>
@@ -63,6 +63,9 @@ export default {
 }
 .navbar-menu {
     border-bottom: 2px solid #ff3860;
+}
+.progress.is-primary:indeterminate {
+  background-image: linear-gradient(to right, #ff3860 30%, #0a2c3c 30%)
 }
 
 </style>

@@ -9,13 +9,23 @@ module.exports = {
         let password = req.body.password
 
         let Model = Common.GetModel(Enum.MODELS.USER)
-        let Filter = { Email: email, Password: password }
+        let Filter = { Email: email }
         let user = await Common.FindOne(Common.Query(Model, Filter))
+        
         if (user) {
-            res.send({
-                Status: 200,
-                User: user
-            })
+            let samePassword = await bcrypt.compare(password, user.Password)                           
+            if (samePassword) {
+                res.send({
+                    Status: 200,
+                    User: user
+                })
+            }else{
+                res.send({
+                    Status: 404,
+                    User: null
+                })                
+            }
+
         } else {
             res.send({
                 Status: 404,

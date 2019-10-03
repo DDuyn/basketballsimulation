@@ -35,6 +35,11 @@
             </b-navbar-item>
         </template>
         <template slot="end" v-if="this.$route.path !== '/'">
+            <b-navbar-item>
+                <a class="button is-light">
+                    {{this.$session.get('Email')}}
+                </a>
+            </b-navbar-item>
             <b-navbar-item tag="div">
                 <div class="buttons">
                     <a class="button is-light" @click="LogOut">

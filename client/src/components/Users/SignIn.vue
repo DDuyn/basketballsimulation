@@ -77,7 +77,8 @@ export default {
       email: '',
       password: '',
       name: '',
-      passwordConfirm: ''
+      passwordConfirm: '',
+      isPogressModalActive: false
     }
   },
   methods: {
@@ -89,15 +90,9 @@ export default {
       })
         .then(response => {
           if (response.data.Status === 200) {
-            this.$buefy.dialog.alert({
-              title: `Success`,
-              message: `<strong>User created succesfully</strong>`,
-              type: 'is-success',
-              hasIcon: true,
-              icon: 'check-circle',
-              iconPack: 'mdi'
-            })
+            this.SetSession(response.data.User)
             this.$emit('close')
+            this.$router.push('Main')
           } else if (response.data.Status === 409) {
             this.$buefy.dialog.alert({
               title: `Error`,

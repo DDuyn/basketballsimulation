@@ -8,11 +8,22 @@ import 'buefy/dist/buefy.css'
 import VueSession from 'vue-session'
 import './vee-validate'
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
+import VueProgressBar from 'vue-progressbar'
+
+const options = {
+  color: '#ff3860',
+  failedColor: 'red',
+  thickness: '15px',
+  position: 'relative',
+  inverse: true,
+  autoFinish: false
+}
 
 Vue.use(Buefy)
 Vue.use(VueSession)
 Vue.component('ValidationProvider', ValidationProvider)
 Vue.component('ValidationObserver', ValidationObserver)
+Vue.use(VueProgressBar, options)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
