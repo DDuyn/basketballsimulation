@@ -12,8 +12,8 @@
                 <b-navbar-item tag="router-link" :to="{ path: '/competition/4' }">
                     PreQualifier EuroBasket
                 </b-navbar-item>
-                <b-navbar-item href="#">
-                    Contact
+                <b-navbar-item tag="router-link" :to="{ path: '/competition/5' }">
+                    PreQualifier America
                 </b-navbar-item>
             </b-navbar-dropdown>
         </template>

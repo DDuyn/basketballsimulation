@@ -1,39 +1,27 @@
 <template>
-  <v-container fluid grid-list-xs>
-    <v-layout row wrap>
-      <v-flex xs12>
-        <h3>{{systemCompetition.Name}} - Season {{this.$session.get('Season')}}</h3>
-      </v-flex>
-    </v-layout>
-    <v-layout row wrap>
-      <v-flex xs12 v-for="index in systemCompetition.NumberGroups" :key="index">
-        <h4 class="textLeft">Group {{letters[index-1]}}</h4>
-        <v-simple-table>
-          <thead>
-            <tr>
-              <th>Team</th>
-              <th>Wins</th>
-              <th>Losses</th>
-              <th>Points Favour</th>
-              <th>Points Against</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="group in groups" :key="group._id">
-              <th class="thNameTeam" v-if="group.Group == letters[index-1]">
-               <img class="img-circle" :src="require(`../../assets/flags/${group.CodeTeam}.svg`)" height="25px" width="25px">
-               <span>{{group.Team}}</span>
-              </th>
-              <th class="thNameTeam" v-if="group.Group == letters[index-1]">{{group.Wins}}</th>
-              <th class="thNameTeam" v-if="group.Group == letters[index-1]">{{group.Losses}}</th>
-              <th class="thNameTeam" v-if="group.Group == letters[index-1]">{{group.PointsFavour}}</th>
-              <th class="thNameTeam" v-if="group.Group == letters[index-1]">{{group.PointsAgainst}}</th>
-            </tr>
-          </tbody>
-        </v-simple-table>
-      </v-flex>
-    </v-layout>
-  </v-container>
+<div>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container has-text-left">
+        <h3 class="title">{{systemCompetition.Name}} - Season {{this.$session.get('Season')}}</h3>
+        <hr/>
+      </div>
+    </div>
+  </section>
+  <section>
+    <b-tabs v-model="activeTab" size="is-medium" position="is-right">
+      <b-tab-item v-for="index in systemCompetition.NumberGroups" :key="index" :label="letters[index-1]" icon="format-list-bulleted">
+        <b-table :data="teams" :row-class="(row, index) => row.id <= 4 && 'is-info'">
+          <template slot-scope="props">
+            <b-table-column :field="columns.field" :label="columns.label" v-for="(columns, i) in columns" :key="i" v-if="props.row[5] == letters[index-1]">
+              {{ props.row[i] }}
+            </b-table-column>
+          </template>
+        </b-table>
+      </b-tab-item>
+    </b-tabs>
+  </section>
+</div>
 </template>
 
 <script>
@@ -46,7 +34,31 @@ export default {
     return {
       groups: [],
       systemCompetition: [],
-      letters: []
+      letters: [],
+      activeTab: 0,
+      columns: [
+        {
+          field: 'Team',
+          label: 'Team'
+        },
+        {
+          field: 'Wins',
+          label: 'Wins'
+        },
+        {
+          field: 'Losses',
+          label: 'Losses'
+        },
+        {
+          field: 'PointsFavour',
+          label: 'P. Favour'
+        },
+        {
+          field: 'PointsAgainst',
+          label: 'P. Against'
+        }
+      ],
+      teams: []
     }
   },
   mounted () {
@@ -64,7 +76,17 @@ export default {
         user: this.$session.get('User'),
         season: this.$session.get('Season')
       })
-      console.log(response.data)
+      for (let key in response.data.groups) {
+        var item = response.data.groups[key]
+        this.teams.push([
+          item.Team,
+          item.Wins,
+          item.Losses,
+          item.PointsFavour,
+          item.PointsAgainst,
+          item.Group
+        ])
+      }
       this.groups = response.data.groups
     }
   }
@@ -72,21 +94,11 @@ export default {
 </script>
 
 <style scoped>
-tbody tr:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, .05);
-}
-.textLeft {
-  text-align: left;
-}
-.thNameTeam {
-  width: 570px;
-}
-.thNameTeam span {
- margin-left: 7px;
-}
-.thNameTeam .img-circle {
-  border-radius: 25px;
-  position: relative;
-  top: 6px;
+    tr.is-info {
+        background: #167df0;
+        color: #fff;
+    }
+hr{
+  background-color:#ff3860;
 }
 </style>

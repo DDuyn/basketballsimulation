@@ -1,7 +1,7 @@
 <template>
   <div id="app">
       <Navigation v-if="this.$route.path !== '/NotFound'"></Navigation>
-      <router-view/>
+      <router-view :key="$route.path"/>
   </div>
 </template>
 
