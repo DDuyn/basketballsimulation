@@ -11,7 +11,7 @@
   <section>
     <b-tabs v-model="activeTab" size="is-medium" position="is-right">
       <b-tab-item v-for="index in systemCompetition.NumberGroups" :key="index" :label="letters[index-1]" icon="format-list-bulleted">
-        <b-table :data="teams" :row-class="(row, index) => row.id <= 4 && 'is-info'">
+        <b-table :data="teams">
           <template slot-scope="props">
             <b-table-column :field="columns.field" :label="columns.label" v-for="(columns, i) in columns" :key="i" v-if="props.row[5] == letters[index-1]">
               {{ props.row[i] }}
