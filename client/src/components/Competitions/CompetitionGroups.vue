@@ -9,20 +9,37 @@
     </div>
   </section>
   <section>
-    <b-navbar-item tag="router-link" :to="{ path: '/competition/4/Groups' }">PreQualifier EuroBasket - Groups</b-navbar-item>
+    <b-tabs v-model="activeTab" size="is-medium" position="is-right">
+      <b-tab-item v-for="index in systemCompetition.NumberGroups" :key="index" :label="letters[index-1]" icon="format-list-bulleted">
+        <b-table :data="teams" :row-class="getRow">
+          <template slot-scope="props">
+            <b-table-column :field="columns.field" :label="columns.label" v-for="(columns, i) in columns" :key="i" v-if="props.row[6] == letters[index-1]">
+              {{ props.row[i] }}
+            </b-table-column>
+          </template>
+        </b-table>
+      </b-tab-item>
+    </b-tabs>
+  </section>
+  <section>
+      <ul v-for="match in matches" :key="match.Match">
+          <li>{{match.Home}} vs {{match.Away}}</li>
+      </ul>
   </section>
 </div>
 </template>
 
 <script>
 import CompetitionsGroupService from '@/Services/CompetitionsGroupService'
+import MatchesService from '@/Services/MatchesService'
 var Functions = require('../../../../server/functions/functions')
 var Constants = require('../../../../server/functions/constants')
 export default {
-  name: 'Competition',
+  name: 'CompetitionGroups',
   data () {
     return {
       groups: [],
+      matches: [],
       systemCompetition: [],
       letters: [],
       activeTab: 0,
@@ -58,6 +75,7 @@ export default {
   mounted () {
     this.GetSystemCompetition()
     this.getGroupsByComp()
+    this.getMatchesByGroup()
   },
   methods: {
     GetSystemCompetition () {
@@ -83,6 +101,15 @@ export default {
         ])
       }
       this.groups = response.data.groups
+    },
+    async getMatchesByGroup () {
+      const response = await MatchesService.getMatchesByGroup({
+        competition: this.$route.params.codeCompetition,
+        user: this.$session.get('User'),
+        season: this.$session.get('Season')
+      })
+      console.log(response.data.Matches)
+      this.matches = response.data.Matches
     },
     getRow (row) {
       if (row[0] <= this.systemCompetition.NumberTeamsClassifiedByGroup) return 'is-classified'

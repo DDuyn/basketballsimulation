@@ -5,6 +5,8 @@ module.exports = {
         "Region": "EU",
         "Quantity": 40,
         "NumberGroups": 4,
+        "NumberTeamsClassifiedByGroup": 4,
+        "NumberTeamsClassifiedByGroupLoser": 2,        
         "NumberTeamsByGroup": 10,
         "RoundsByGroup": 18
     },
@@ -14,6 +16,8 @@ module.exports = {
         "Region": "AM",
         "Quantity": 32,
         "NumberGroups": 4,
+        "NumberTeamsClassifiedByGroup": 4,
+        "NumberTeamsClassifiedByGroupLoser": 0,
         "NumberTeamsByGroup": 8,
         "RoundsByGroup": 14
     },
@@ -23,6 +27,8 @@ module.exports = {
         "Region": "AS",
         "Quantity": 40,
         "NumberGroups": 4,
+        "NumberTeamsClassifiedByGroup": 4,
+        "NumberTeamsClassifiedByGroupLoser": 2,        
         "NumberTeamsByGroup": 10,
         "RoundsByGroup": 18
     },
@@ -32,6 +38,8 @@ module.exports = {
         "Region": "AF",
         "Quantity": 32,
         "NumberGroups": 4,
+        "NumberTeamsClassifiedByGroup": 4,
+        "NumberTeamsClassifiedByGroupLoser": 2,                
         "NumberTeamsByGroup": 8,
         "RoundsByGroup": 14
     }

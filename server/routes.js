@@ -4,6 +4,7 @@ var RankingController = require('./controllers/RankingController')
 var CompetitionGroupsController = require('./controllers/CompetitionsGroupController')
 var UsersController = require('./controllers/UsersController')
 var GenerateController = require('./controllers/GenerateController')
+var MatchesController = require('./controllers/MatchesController')
 
 
 module.exports = (app) => {
@@ -30,6 +31,7 @@ module.exports = (app) => {
 
     //CompetitionGroups
     app.get('/competitionsgroups/:codeCompetition', CompetitionGroupsController.GetCompetitionGroups)
+    app.get('/matches', MatchesController.GetMatchesByGroup)
     // app.get('/competitionsgroups/:codeCompetition/group/:group', CompetitionGroupsController.GetTeamsByGroup)
 
 }
