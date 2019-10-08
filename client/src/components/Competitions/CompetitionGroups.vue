@@ -2,9 +2,8 @@
 <div>
   <section class="hero">
     <div class="hero-body">
-      <div class="container has-text-left">
+      <div class="tile is-ancestor">
         <h3 class="title">{{systemCompetition.Name}} - Season {{this.$session.get('Season')}}</h3>
-        <hr/>
       </div>
     </div>
   </section>
@@ -18,13 +17,31 @@
             </b-table-column>
           </template>
         </b-table>
+        <section>
+            <div class="hero">
+                <div class="hero-body">
+                    <b-collapse class="card" v-for="round in systemCompetition.RoundsByGroup" :key="round">
+                        <div slot="trigger" slot-scope="props" class="card-header">
+                            <p class="card-header-title">Round {{round}}</p>
+                            <a class="card-header-icon">
+                                <b-icon
+                                    :icon="props.open ? 'menu-down' : 'menu-up'">
+                                </b-icon>
+                            </a>
+                        </div>
+                        <div class="card-content">
+                            <div class="content">
+                                <div v-for="match in matches" :key="match.Match" v-if="match.Group == letters[index-1] && match.Round == round">
+                                    <div>{{match.Home}} vs {{match.Away}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </b-collapse>
+                </div>
+            </div>
+        </section>
       </b-tab-item>
     </b-tabs>
-  </section>
-  <section>
-      <ul v-for="match in matches" :key="match.Match">
-          <li>{{match.Home}} vs {{match.Away}}</li>
-      </ul>
   </section>
 </div>
 </template>
@@ -38,7 +55,6 @@ export default {
   name: 'CompetitionGroups',
   data () {
     return {
-      groups: [],
       matches: [],
       systemCompetition: [],
       letters: [],
@@ -69,7 +85,8 @@ export default {
           label: 'P. Against'
         }
       ],
-      teams: []
+      teams: [],
+      test: []
     }
   },
   mounted () {
@@ -100,7 +117,6 @@ export default {
           item.Group
         ])
       }
-      this.groups = response.data.groups
     },
     async getMatchesByGroup () {
       const response = await MatchesService.getMatchesByGroup({
@@ -108,7 +124,9 @@ export default {
         user: this.$session.get('User'),
         season: this.$session.get('Season')
       })
-      console.log(response.data.Matches)
+      this.test = response.data.Matches.filter(x => x.Group === 'A')
+
+      console.log(this.test)
       this.matches = response.data.Matches
     },
     getRow (row) {
