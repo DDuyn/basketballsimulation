@@ -10,6 +10,7 @@
   </section>
   <section>
     <b-navbar-item tag="router-link" :to="{ path: '/competition/4/Groups' }">PreQualifier EuroBasket - Groups</b-navbar-item>
+    <b-navbar-item tag="router-link" :to="{ path: '/competition/5/Groups' }">PreQualifier AmeriCup - Groups</b-navbar-item>
   </section>
 </div>
 </template>

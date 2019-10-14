@@ -67,5 +67,4 @@ export default {
 .progress.is-primary:indeterminate {
   background-image: linear-gradient(to right, #ff3860 30%, #0a2c3c 30%)
 }
-
 </style>

@@ -8,7 +8,7 @@
     </div>
   </section>
   <section>
-    <b-tabs v-model="activeTab" size="is-medium" position="is-right">
+    <b-tabs v-model="activeTab" size="is-medium" position="is-right" @change="onTabChange">
       <b-tab-item v-for="index in systemCompetition.NumberGroups" :key="index" :label="letters[index-1]" icon="format-list-bulleted">
         <b-table :data="teams" :row-class="getRow">
           <template slot-scope="props">
@@ -20,19 +20,43 @@
         <section>
             <div class="hero">
                 <div class="hero-body">
-                    <b-collapse class="card" v-for="round in systemCompetition.RoundsByGroup" :key="round">
-                        <div slot="trigger" slot-scope="props" class="card-header">
-                            <p class="card-header-title">Round {{round}}</p>
-                            <a class="card-header-icon">
-                                <b-icon
-                                    :icon="props.open ? 'menu-down' : 'menu-up'">
-                                </b-icon>
-                            </a>
-                        </div>
+                    <b-collapse class="card">
                         <div class="card-content">
                             <div class="content">
-                                <div v-for="match in matches" :key="match.Match" v-if="match.Group == letters[index-1] && match.Round == round">
-                                    <div>{{match.Home}} vs {{match.Away}}</div>
+                                <div >
+                                  <section>
+                                    <b-taglist attached>
+                                      <b-tag type="is-dark">Round</b-tag>
+                                      <b-tag type="is-danger">{{ round }}</b-tag>
+                                    </b-taglist>
+                                    <b-table
+                                      :data="group"
+                                      :paginated="isPaginated"
+                                      :per-page="perPage"
+                                      :current-page.sync="currentPage"
+                                      :pagination-simple="isPaginationSimple"
+                                      :pagination-position="paginationPosition"
+                                      @page-change="onPageChange"
+                                    >
+                                      <template slot-scope="props">
+                                          <b-table-column field="PointsHome" label="Points Home">
+                                            <b-tag type="is-dark">{{props.row.PointsHome}}</b-tag>
+                                          </b-table-column>
+                                          <b-table-column field="Home" label="Home">
+                                            {{props.row.Home}}
+                                          </b-table-column>
+                                          <b-table-column>
+                                            <b-tag type="is-danger">vs</b-tag>
+                                          </b-table-column>
+                                          <b-table-column filed="Away" label="Away">
+                                            {{props.row.Away}}
+                                          </b-table-column>
+                                          <b-table-column field="PointsAway" label="Points Away">
+                                            <b-tag type="is-dark">{{props.row.PointsAway}}</b-tag>
+                                          </b-table-column>
+                                      </template>
+                                    </b-table>
+                                  </section>
                                 </div>
                             </div>
                         </div>
@@ -55,6 +79,11 @@ export default {
   name: 'CompetitionGroups',
   data () {
     return {
+      isPaginated: true,
+      isPaginationSimple: true,
+      paginationPosition: 'bottom',
+      currentPage: 1,
+      perPage: 5,
       matches: [],
       systemCompetition: [],
       letters: [],
@@ -86,7 +115,8 @@ export default {
         }
       ],
       teams: [],
-      test: []
+      group: [],
+      round: 1
     }
   },
   mounted () {
@@ -95,6 +125,12 @@ export default {
     this.getMatchesByGroup()
   },
   methods: {
+    onTabChange (index) {
+      this.group = this.matches.filter(x => x.Group === this.letters[index])
+    },
+    onPageChange (page) {
+      this.round = page
+    },
     GetSystemCompetition () {
       this.systemCompetition = Functions.GetSystemCompetition(parseInt(this.$route.params.codeCompetition))
       this.letters = Constants.GROUPS
@@ -124,9 +160,8 @@ export default {
         user: this.$session.get('User'),
         season: this.$session.get('Season')
       })
-      this.test = response.data.Matches.filter(x => x.Group === 'A')
-
-      console.log(this.test)
+      this.perPage = this.systemCompetition.NumberTeamsByGroup / 2
+      this.group = response.data.Matches.filter(x => x.Group === this.letters[0])
       this.matches = response.data.Matches
     },
     getRow (row) {
@@ -152,5 +187,8 @@ tr.is-loser {
 }
 hr{
   background-color: #ff3860;
+}
+.tag:not(body) {
+  font-size: 18px;
 }
 </style>
