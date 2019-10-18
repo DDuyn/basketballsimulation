@@ -9,10 +9,10 @@
                 Documentation
             </b-navbar-item>
             <b-navbar-dropdown label="Competitions">
-                <b-navbar-item tag="router-link" :to="{ path: '/competition/4' }">
-                    PreQualifier EuroBasket
+                <b-navbar-item tag="router-link" :to="{ path: '/competitions/EU' }">
+                    Europe
                 </b-navbar-item>
-                <b-navbar-item tag="router-link" :to="{ path: '/competition/5' }">
+                <b-navbar-item tag="router-link" :to="{ path: '/competitions/AM' }">
                     PreQualifier America
                 </b-navbar-item>
             </b-navbar-dropdown>

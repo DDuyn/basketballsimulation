@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/components/Main'
-import Competition from '@/components/Competitions/Competition'
+import Competition from '@/components/Competitions/Competitions'
 import CompetitionGroups from '@/components/Competitions/CompetitionGroups'
-import Group from '@/components/Competitions/Group'
 import Index from '@/components/Index'
 import NotFound from '@/components/NotFound'
 
@@ -29,8 +28,8 @@ const router = new Router({
       }
     },
     {
-      path: '/competition/:codeCompetition',
-      name: 'Competition',
+      path: '/competitions/:region',
+      name: 'Competitions',
       component: Competition,
       meta: {
         isPublic: false
@@ -40,14 +39,6 @@ const router = new Router({
       path: '/competition/:codeCompetition/Groups',
       name: 'CompetitionGroups',
       component: CompetitionGroups,
-      meta: {
-        isPublic: false
-      }
-    },
-    {
-      path: '/competition/:codeCompetition/Group/:group',
-      name: 'Group',
-      component: Group,
       meta: {
         isPublic: false
       }
